@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Description
+# -----------------------------------
+# Opens a terminal text editor
+# $1 - The path to the text file
+# -----------------------------------
+
+# Config
+# -----------------------------------
+terminal='alacritty'
+editor='nvim'
+scratchpad_directory="$MY_SPACE/scratchpads/"
+# -----------------------------------
+
+"$terminal" -e "$editor" "$scratchpad_directory/$1" & disown

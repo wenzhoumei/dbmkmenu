@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# Appends new bookmarks to the current bookmark list (a list with no action binded)
+# $1 - Bookmark to append
+# -----------------------------------
+
+echo "$1" >> "$DBMK_HOME/lists/CURRENT"

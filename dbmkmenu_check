@@ -1,0 +1,38 @@
+#!/bin/sh
+
+die() {
+    dbmkmenu_errmsg "$*"
+    exit 1
+}
+
+if [ -z "$DBMK_HOME" ]; then
+	die "Set environment variable \$DBMK_HOME"
+elif [ ! -d "$DBMK_HOME" ]; then
+	die "\$DBMK_HOME(\'$DBMK_HOME\') is not a valid directory"
+fi
+
+actions_path="$DBMK_HOME/actions"
+if [ ! -e "$actions_path" ]; then
+	die "Create directory \$DBMK_HOME/actions"
+elif [ ! -d "$actions_path" ]; then
+	die "Your \$DBMK_HOME/actions is not a valid directory"
+fi
+
+default_action="DEFAULT"
+if [ ! -e "$actions_path/$default_action" ]; then
+	die "Create the default action as \$DBMK_HOME/actions/DEFAULT"
+elif [ ! -x "$actions_path/$default_action" ]; then
+	die "Default action must be an executable file"
+fi
+
+lists_path="$DBMK_HOME/lists"
+if [ ! -e "$lists_path" ]; then
+	die "Create directory \$DBMK_HOME/lists"
+elif [ ! -d "$lists_path" ]; then
+	die "Your \$DBMK_HOME/lists is not a valid directory"
+fi
+
+history_list_path="$lists_path/HISTORY"
+if [ ! -e "$history_list_path" ]; then
+	touch "$history_list_path"
+fi

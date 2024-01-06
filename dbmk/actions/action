@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# Opens or creates actions
+# $1 - The filename of the action to create/delete
+# -----------------------------------
+
+# Config
+# -----------------------------------
+terminal="alacritty"
+text_editor="nvim"
+# -----------------------------------
+
+action_path="$DBMK_HOME/actions/$1"
+touch $action_path
+chmod +x "$action_path"
+
+$terminal -e $text_editor "$action_path"

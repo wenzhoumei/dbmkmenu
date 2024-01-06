@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# Used to notify user about errors when running bookmarks
+# Should be incorporated in your action scripts so you know when an error occurs
+# Takes in an argument $1 which is shown in x
+# -----------------------------------
+
+echo "$1"
+echo "OK" | dmenu -p "$1:"

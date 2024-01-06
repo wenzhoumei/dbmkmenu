@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Description
+# -----------------------------------
+# Runs system programs like "poweroff" and "reboot"
+# $1 - The name of the program
+# -----------------------------------
+
+$1 & disown

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# Passes arguments to dbmk_browse
+# $1 - The arguments
+# -----------------------------------
+
+dbmkmenu_browse $1

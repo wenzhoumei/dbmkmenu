@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Description
+# -----------------------------------
+# Opens a terminal program
+# $1 - The terminal program
+# -----------------------------------
+
+# Config
+# -----------------------------------
+terminal='alacritty'
+shell='bash'
+# -----------------------------------
+
+"$terminal" -e "$shell" -c "$1"

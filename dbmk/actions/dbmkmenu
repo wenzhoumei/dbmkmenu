@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# Opens an instance of dbmkmenu
+# $1 - The arguments passed to dbmkmenu
+# -----------------------------------
+
+dbmkmenu $1

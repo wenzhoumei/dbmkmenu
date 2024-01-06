@@ -1,0 +1,67 @@
+#!/bin/bash
+# Description
+# -----------------------------------
+# Plays subdirectory of a directory as a playlist
+# $1 - The subdirectory name
+# -----------------------------------
+
+# Config
+# -----------------------------------
+playlist_dir="$MY_SPACE/playlists"
+# -----------------------------------
+
+LOCK_FILE="/tmp/my_play_script.lock"
+
+if [ "$1" = "stop" ]; then
+	# Get the process ID of the existing mpv process
+	if [ ! -f "$LOCK_FILE" ] ; then
+		echo "The existing mpv instance with PID $existing_pid is not running."
+		exit 1
+	fi
+
+	existing_pid=$(cat "$LOCK_FILE")
+
+	# Check if the process is still running
+	if ps -p "$existing_pid" > /dev/null; then
+		echo "Stopping the existing mpv instance with PID $existing_pid."
+		pkill -P "$existing_pid" -TERM mpv
+		exit 0
+	fi
+	
+	exit 2
+fi
+
+# Check if the lock file exists
+if [ -e "$LOCK_FILE" ]; then
+    # Get the process ID of the existing mpv process
+    existing_pid=$(cat "$LOCK_FILE")
+
+    # Check if the process is still running
+    if ps -p "$existing_pid" > /dev/null; then
+        echo "Stopping the existing mpv instance with PID $existing_pid."
+        pkill -P "$existing_pid" -TERM mpv
+	sleep 2
+    else
+        echo "The existing mpv instance with PID $existing_pid is not running."
+    fi
+fi
+
+# Store the current process ID in the lock file
+echo "$$" > "$LOCK_FILE"
+
+# Function to clean up the lock file on exit
+cleanup() {
+    rm -f "$LOCK_FILE"
+}
+
+# Register the cleanup function to run on script exit
+trap cleanup EXIT
+
+# Check if the correct number of arguments is provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <directory_path>"
+    exit 1
+fi
+
+# Play the shuffled playlist using mpv
+mpv --shuffle --playlist="$playlist_dir/$1" --loop-playlist=inf

@@ -1,0 +1,132 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# TODO
+# https://github.com/bitsmanent/scripts/blob/master/src/dbrowse
+# -----------------------------------
+
+# -----------------------------------
+# TODO -d depth relative to original path when chosen
+# -h files only
+# -n print name of chosen instead of path (doesn't browse)
+# -----------------------------------
+
+NEWLINE="
+"
+
+usage() {
+	dbmkmenu_errmsg "usage: dbmkmenu_browse <filepath> [-dhn]"
+	exit 1;
+}
+
+fullpath() {
+	name="$(sh -c "echo '$1'")"
+	path="$2"
+	c="$(echo "$name" |cut -b1)"
+
+	if [ "$c" = "/" ]; then
+		full="$name"
+	else
+		full="$path/$name"
+	fi
+	realpath "$full"
+
+}
+
+dbmkmenu_check
+[ $? -ne 0 ] && exit $?;
+
+main() {
+	while true; do
+		file_choices="$(ls ${lsargs} "$filepath" | grep -v '^\.$')"
+
+		if [ "$restricted_in_path" = "/" ]; then
+			file_choices="$file_choices$NEWLINE.."
+		fi
+
+		chosenpath="$(echo "$file_choices" | dbmkmenu_show -A -p "$filepath:")"
+		ec=$?
+		[ "$ec" -ne 0 ] && exit $ec
+
+		fullchosenpath="$(fullpath "$chosenpath" "$filepath")"
+		if [ "$is_print_non_existent" = "false" ]; then
+			[ ! -e "$fullchosenpath" ] && continue
+
+			if [ ! "$restricted_in_path" = "/" ]; then
+				[[ ! $fullchosenpath == $restricted_in_path/* ]] && continue
+			fi
+
+			if [ -d "$fullchosenpath" ] && [ "$is_print_directories" = "false" ]; then
+				filepath="$fullchosenpath"
+				continue
+			fi
+		fi
+
+		[ "$is_print_names" = "false" ] && chosenpath="$fullchosenpath"
+		if [ -z "$script" ]; then
+			echo "$chosenpath"
+		else
+			echo "$chosenpath"
+			$script "$chosenpath"
+		fi
+
+		exit 0
+	done
+}
+
+restricted_in_path="/"
+is_print_names="false"
+is_print_directories="false"
+is_print_non_existent="false"
+lsargs="-1"
+
+# PROCESS ARGUMENTS #
+while getopts "a:s:dhnrN" opt; do
+	case $opt in
+		a)
+			prompt="$OPTARG"
+			script="$DBMK_HOME/actions/$OPTARG"
+			;;
+		s)
+			prompt="$OPTARG"
+			script="$OPTARG"
+			;;
+		h)
+			lsargs="${lsargs} -A"
+			;;
+		d)
+			is_print_directories="true"
+			;;
+		n)
+			is_print_names="true"
+			;;
+		r)
+			restricted_in_path="$filepath"
+			;;
+		N)
+			is_print_non_existent="true"
+			;;
+		\?)
+			usage
+			;;
+		:)
+			usage
+			;;
+	esac
+done
+
+shift "$((OPTIND-1))"
+if [ $# -ne 1 ]; then
+	usage
+fi
+
+eval filepath="$1"
+if [ ! -e "$filepath" ]; then
+	dbmkmenu_errmsg "Invalid path passed"
+	exit 1;
+fi
+
+filepath=$(realpath "$filepath")
+
+main

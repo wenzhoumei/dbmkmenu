@@ -1,0 +1,164 @@
+# Apps
+chrome|app>google-chrome-stable
+teams|app
+kolourpaint|app
+libreoffice|app
+okular|app
+vinagre|app
+incognito-chrome|app>google-chrome-stable --incognito
+
+# Links
+## Entertainment
+### Social Media
+whatsapp|link>https://web.whatsapp.com/
+instagram|link>instagram.com
+discord|link>https://discord.com/channels/@me
+twitter|link>twitter.com
+youtube|link>youtube.com
+
+### Computer Environment
+suckless|link>suckless.org
+font-awesome-icons|link>https://fontawesome.com/v4/cheatsheet/
+wallhaven|link>wallhaven.cc
+
+### Misc
+lichess|link>lichess.org
+showdown|link>https://play.pokemonshowdown.com/
+bbc|link>bbc.co.uk
+story|link>https://docs.google.com/document/d/1ing3rmmZxkclhiBWn7nHvAEHxAOg1W1eOO-XH9xwVvI/edit
+mal|link>https://myanimelist.net/animelist/ibsbam
+ani-issues|link>https://github.com/pystardust/ani-cli/issues
+
+## Living
+### General
+weather|link>https://www.bbc.co.uk/weather/2642476
+calendar|link>https://calendar.google.com/calendar/u/0/r?opentasks=1
+amazon|link>https://amazon.co.uk
+
+### Travel
+google-maps|link>https://maps.google.com/
+
+## Utility
+translate|link>https://translate.google.co.uk
+passwords|link>https://passwords.google.com
+
+## General Professional
+### Documents
+word|link>https://www.office.com/launch/word
+docs|link>https://docs.google.com/document/u/0/
+overleaf|link>https://www.overleaf.com/project
+
+### Information Retrieval
+chatgpt|link>https://chat.openai.com/
+google|link>https://google.com
+
+### Emails
+outlook|link>https://outlook.office.com/mail/
+gmail|link>gmail.com
+
+#### School
+ucas|link>https://www.ucas.com/dashboard#/
+
+### Misc
+drive|link>https://drive.google.com/drive/u/0/my-drive
+
+## Development Professional
+github|link>github.com
+codewars|link>https://www.codewars.com/dashboard
+programming-conventions|link>https://docs.google.com/document/d/1ujZDfpPREqfHctYMQwnE8xdVDA6OjJyJGBCB2uFCIV8
+
+# Scripts + Terminal
+## Apps
+python|term
+nmtui|term
+ani-hist|term>ani-cli -c
+
+## Sys
+poweroff|sys
+reboot|sys
+suspend|sys>systemctl suspend
+
+## Utils
+#random-wallpaper|util
+#select-wallpaper|util
+#kill|util
+#toggle-touchpad|util
+#screenshot|util
+#color-picker|util
+#clip-menu|util
+#lock-screen|util
+#pick-unicode|util
+
+## Search
+#google|search
+#incognito|search
+#youtube|search
+#searx|search
+#docs|search
+#manga|search
+
+## Custom
+#ongoing-manga|custom
+
+# Text
+## Configuration
+bashrc|text>/home/wen/.bashrc
+xinitrc|text>/home/wen/.xinitrc
+nvim.init|text>/home/wen/.config/nvim/init.vim
+bash-profile|text>/home/wen/.bash_profile
+
+# Directories
+## dbmkmenu
+actions|dir>$DBMK_HOME/actions
+lists|dir>$DBMK_HOME/lists
+dbmk|dir>$DBMK_HOME
+
+## Home
+downloads|dir>$HOME/Downloads
+documents|dir>$HOME/Documents
+pictures|dir>$HOME/Pictures
+
+# Menus
+## Lists
+DEFAULT|list
+ARCHIVE|list
+
+## Bookmarks
+HISTORY|dbmk
+ARCHIVE|dbmk
+
+## dbmkmenu
+add|dbmkmenu>-l HISTORY -a add
+archive|dbmkmenu>-l HISTORY -a archive
+
+## Browse
+### Create or Select
+actions|browse>-a action -N -n -r "$DBMK_HOME/actions" 
+lists|browse>-a list -N -n -r "$DBMK_HOME/lists" 
+
+### Generic
+downloads|browse>-s xdg-open -r "$HOME/Downloads" 
+documents|browse>-s xdg-open -r "$HOME/Documents" 
+
+### Select
+#search|browse>-a search -n -r "$MY_SPACE/search-scripts"
+#music|browse>-s mpv -r "$MY_SPACE/playlists"
+#playlists|browse>-a playlist -n -d -r "$MY_SPACE/playlists"
+#scratchpads|browse>-a scratchpad -n -d -r "$MY_SPACE/scratchpads"
+
+# Other
+## Playlists
+#round-eyes|playlist
+#inabakumori|playlist
+#eminem|playlist
+#stop|playlist
+
+## Scratchpads
+commands|scratchpad
+quick-notes|scratchpad
+cool-stuff|scratchpad
+
+# TO BE SORTED
+slides|link>https://docs.google.com/presentation/u/0/
+htop|term
+office|link>https://www.microsoft365.com/?auth=2

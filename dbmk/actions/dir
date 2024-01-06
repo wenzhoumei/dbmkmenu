@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# Opens a directory in a terminal
+# $1 - The directory path
+# -----------------------------------
+
+# Config
+# -----------------------------------
+terminal='alacritty'
+shell='bash'
+# -----------------------------------
+
+"$terminal" -e "$shell" -c "cd $1; $shell" & disown

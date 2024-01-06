@@ -1,0 +1,128 @@
+#!/bin/bash
+
+die() {
+    dbmkmenu_errmsg "$*"
+    exit 1
+}
+
+execute() {
+	"$script" "$data"
+}
+
+usage() {
+	die "usage: dbmkmenu [-D dmenu_args] [-a action]|[-s script] [-l list]|[-d directory]|[-f filepath]"
+}
+
+dbmkmenu_check
+
+[ $? -ne 0 ] && exit $?;
+
+dieIfSessionTypeSet() {
+	if [ "$dbmk_list_path_set" = true ]; then
+		die "You can only set one argument out of {-l, -d, -f}"
+	fi
+}
+
+setListPath() {
+	dieIfSessionTypeSet
+	dbmk_list_path=$(eval echo "$1") # To allow environment variables to be used when specifying session
+	dbmk_list_path_set=true
+}
+
+dbmk_list_path="$DBMK_HOME/lists/DEFAULT"
+
+is_script_applied=false
+
+# PROCESS ARGUMENTS #
+while getopts ":D:a:s:f:l:" opt; do
+	case $opt in
+		D)
+			dmenu_args="$OPTARG"
+			;;
+		# APPLIED SCRIPT TYPES #
+		a)
+			prompt="$OPTARG"
+			script="$DBMK_HOME/actions/$OPTARG"
+			is_script_applied=true
+			;;
+		s)
+			script="$OPTARG"
+			prompt="$OPTARG"
+			is_script_applied=true
+			;;
+		# SESSION TYPES #
+		f)
+			setListPath "$OPTARG"
+			;;
+		l)
+			setListPath "$DBMK_HOME/lists/$OPTARG"
+			;;
+		\?)
+			usage
+			;;
+		:)
+			usage
+			;;
+	esac
+done
+
+shift "$((OPTIND-1))"
+if [ $# -gt 0 ]; then
+	usage
+fi
+
+file() {
+	## ACTION NOT APPLIED ##
+	if [ "$is_script_applied" = true ]; then
+		data=$(cat "$dbmk_list_path" | dmenu -p "$prompt:" $dmenu_args)
+		if [[ -z $data ]]; then
+			exit 0
+		fi
+
+		execute
+		exit 0;
+	fi
+
+	## DEFAULT - ACTION NOT APPLIED ##
+	history_size=100
+
+	sel=$(cat "$dbmk_list_path" | dbmkmenu_show $dmenu_args)
+
+	# IF USER DIDN'T SELECT ANYTHING, EXIT #
+	if [[ -z "$sel" ]]; then
+		exit 0;
+	fi
+
+	ln -sf "$dbmk_list_path" "$DBMK_HOME/lists/CURRENT"
+
+	# EXTRACT {DATA}, {IDENTIFIER} AND {ACTION} FROM THE SELECTED ENTRY
+	identifier=${sel%%|*}
+	action=${sel#*|}
+
+	# LOGIC ASSUMING ACTION IS VALID FIRST #
+	if [[ $action =~ '>' ]]; then
+		# LIKE "firefox|app>firefox"
+		data=${action#*>}
+		action=${action%%>*}
+	else
+		# LIKE "firefox|app"
+		data=${identifier#*>}
+	fi
+
+	# IF ACTION IS INVALID #
+	if [[ ! -f "$DBMK_HOME/actions/$action" ]]; then
+		# LIKE "firefox|app or firefox|app>firefox WHERE app isn't a file in DBMK_HOME/actions"
+		data="$sel"
+		action="DEFAULT"
+	fi
+
+	script="$DBMK_HOME/actions/$action"
+
+	# EXECUTE #
+	execute
+
+	# ADD TO HISTORY #
+	echo -e "$sel\n$(head -"$history_size" $DBMK_HOME/lists/HISTORY)" > $DBMK_HOME/lists/HISTORY
+}
+
+file

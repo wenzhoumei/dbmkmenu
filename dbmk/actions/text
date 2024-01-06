@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Description
+# -----------------------------------
+# Opens a terminal text editor
+# $1 - The path to the text file
+# -----------------------------------
+
+# Config
+# -----------------------------------
+terminal='alacritty'
+editor='nvim'
+# -----------------------------------
+
+"$terminal" -e "$editor" "$1" & disown

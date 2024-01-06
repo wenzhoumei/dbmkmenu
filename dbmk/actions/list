@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# Opens or creates lists
+# $1 - The filename of the list to create/delete
+# -----------------------------------
+
+# Config
+# -----------------------------------
+terminal="alacritty"
+text_editor="nvim"
+# -----------------------------------
+
+list_path="$DBMK_HOME/lists/$1"
+
+$terminal -e $text_editor "$list_path"

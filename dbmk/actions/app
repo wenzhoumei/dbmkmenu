@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Description
+# -----------------------------------
+# Opens apps
+# $1 - The name of the app
+# -----------------------------------
+
+$1 & disown

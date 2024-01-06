@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Description
+# -----------------------------------
+# Binds search scripts located in a set directory to dbmkmenu
+# $1 - The name the script
+# -----------------------------------
+
+# Config
+# -----------------------------------
+script_dir="$MY_SPACE/search-scripts"
+# -----------------------------------
+
+dbmkmenu -l EMPTY -s "$script_dir/$1"

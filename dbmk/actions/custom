@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Description
+# -----------------------------------
+# Runs custom scripts located in a set directory
+# $1 - The name the script
+# -----------------------------------
+
+# Config
+# -----------------------------------
+script_dir="$MY_SPACE/custom-scripts"
+# -----------------------------------
+
+"$script_dir/$1"
