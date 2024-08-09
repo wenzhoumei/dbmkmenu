@@ -10,7 +10,7 @@
 
 # Config
 # -----------------------------------
-browser='google-chrome-stable --profile="Profile 2" --new-window'
+browser='google-chrome-stable --profile="Default" --new-window'
 # -----------------------------------
 
 xprop -root | grep '^_NET_ACTIVE_WINDOW' && {
