@@ -1,6 +1,6 @@
 dbmkmenu - dynamic menu
 ====================
-dbmkmenu is an extension/fork of dmenu to save bookmarks.
+dbmkmenu is an extension/fork of dmenu designed to save bookmarks globally.
 
 Requirements
 ------------
