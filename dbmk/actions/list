@@ -8,7 +8,7 @@
 
 # Config
 # -----------------------------------
-terminal="alacritty"
+terminal="kitty"
 text_editor="nvim"
 # -----------------------------------
 

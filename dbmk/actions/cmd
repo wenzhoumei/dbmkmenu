@@ -2,8 +2,8 @@
 
 # Description
 # -----------------------------------
-# Opens apps
-# $1 - The name of the app
+# Runs commands
+# $1 - Command to run
 # -----------------------------------
 
-eval "$1 & disown"
+$1 & disown

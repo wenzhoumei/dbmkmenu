@@ -10,7 +10,7 @@
 
 # Config
 # -----------------------------------
-browser='google-chrome-stable --profile="Profile 2" --new-window'
+browser='google-chrome-stable --new-window'
 # -----------------------------------
 
 xprop -root | grep '^_NET_ACTIVE_WINDOW' && {
@@ -67,7 +67,7 @@ gotourl() {
 	elif [ -n "$nbrowser" ]
 	then
 		$nbrowser "$choice"
-	else $browser "$choice"
+	else eval "$browser" "$choice"
 	fi
 }
 

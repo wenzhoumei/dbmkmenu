@@ -10,7 +10,7 @@
 
 # Config
 # -----------------------------------
-browser='google-chrome-stable --new-window'
+browser='google-chrome-stable --profile-directory="Profile 2" --new-window'
 engine='https://www.google.co.uk/search?q=%s'
 # -----------------------------------
 
@@ -30,7 +30,7 @@ gotourl() {
 	elif [ -n "$nbrowser" ]
 	then
 		$nbrowser "$choice"
-	else $browser "$choice"
+	else eval "$browser" "$choice"
 	fi
 }
 

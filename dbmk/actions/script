@@ -12,7 +12,7 @@ terminal="kitty"
 text_editor="nvim"
 # -----------------------------------
 
-action_path="$DBMK_HOME/actions/$1"
+action_path="$1"
 touch $action_path
 chmod +x "$action_path"
 

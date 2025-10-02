@@ -64,4 +64,4 @@ if [ "$#" -ne 1 ]; then
 fi
 
 # Play the shuffled playlist using mpv
-mpv --shuffle --playlist="$playlist_dir/$1" --loop-playlist=inf
+mpv --shuffle --playlist="$playlist_dir/$1" --loop-playlist=inf --input-ipc-server=/tmp/mpvsocket
